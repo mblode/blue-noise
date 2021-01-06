@@ -1,5 +1,5 @@
+use clap::{App, load_yaml};
 use image::{ImageBuffer, Luma, RgbImage};
-use std::env;
 
 fn is_bright(noise_color: &Luma<u8>, picture_color: &Luma<u8>) -> bool {
     let noise_luma = noise_color.0;
@@ -16,23 +16,18 @@ fn wrap(m: u32, n: u32) -> u32 {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
+    let yaml = load_yaml!("cli.yaml");
+    let matches = App::from(yaml).get_matches();
 
-    let input_file = &args[1];
-    let input_path = format!("img/{}.png", input_file);
+    let input_file = matches.value_of("INPUT").unwrap();
+    let output_file = matches.value_of("OUTPUT").unwrap();
 
-    let noise_file = &args[2];
-    let noise_path = format!("img/{}.png", noise_file);
-
-    let output_path = format!("img/{}-{}.png", input_file, noise_file);
-
-    let old_img = image::open(input_path).unwrap();
+    let old_img = image::open(input_file).unwrap();
     let mut old_img = old_img.grayscale();
     let old_img = old_img.as_mut_luma8().unwrap();
     let (old_width, old_height) = old_img.dimensions();
 
-    let noise_img = image::open(noise_path).unwrap();
+    let noise_img = image::open("img/noise.png").unwrap();
     let mut noise_img = noise_img.grayscale();
     let noise_img = noise_img.as_mut_luma8().unwrap();
     let (noise_width, noise_height) = noise_img.dimensions();
@@ -53,6 +48,6 @@ fn main() {
         }
     });
 
-    _new_img.save(&output_path).unwrap();
-    println!("File saved to {}", &output_path);
+    _new_img.save(&output_file).unwrap();
+    println!("File saved to {}", &output_file);
 }
