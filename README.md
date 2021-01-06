@@ -1,6 +1,8 @@
 # Blue noise image dither
 
-> Quickly dither an image using blue noise using Rust
+> Black and white image dithering using blue noise
+
+(Written in Rust)
 
 ## Example
 
