@@ -1,7 +1,7 @@
 <h1 align="center">Blue Noise</h1>
 <div align="center">
  <strong>
-   Black and white image dithering using blue noise
+   Black and white image dithering using blue noise written in Rust
  </strong>
 </div>
 
