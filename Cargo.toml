@@ -1,6 +1,6 @@
 [package]
 name = "blue-noise"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Matthew Blode <m@blode.co>"]
 edition = "2018"
 description = "Black and white image dithering using blue noise"
